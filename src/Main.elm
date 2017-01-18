@@ -1,30 +1,62 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (..)
+import Html.Attributes exposing (..)
+import Navigation exposing (Location)
+import Routing exposing (parseLocation, Route(..))
 
-type Msg = NoOp | Yes | No
+type Msg = OnLocationChange Location
 
-type alias Model = String
+type alias Model =
+  {
+    route : Routing.Route
+  }
 
-init : (Model, Cmd Msg)
-init =
-  ("", Cmd.none)
+initModel : Route -> Model
+initModel route =
+  { route = route }
+
+init : Location -> (Model, Cmd Msg)
+init location =
+  let
+    currentRoute = parseLocation location
+  in
+    (initModel currentRoute, Cmd.none)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    Yes -> (model ++ "Yes", Cmd.none)
-    No -> (model ++ "No", Cmd.none)
-    NoOp -> ("", Cmd.none)
+    OnLocationChange location ->
+      let
+        newRoute = parseLocation location
+      in
+        ({ model | route = newRoute}, Cmd.none)
+
+page : Model -> Html Msg
+page model =
+  case model.route of
+    About ->
+      div [] [text "About"]
+    Index ->
+      div [] [text "Index"]
+    NotFound ->
+      div [] [text "NotFound"]
 
 view : Model -> Html Msg
 view model =
   div [] [
-    button [onClick Yes] [Html.text "Yes"],
-    button [onClick No] [Html.text "No"],
-    button [onClick NoOp] [Html.text "Clear"],
-    span [] [Html.text model]
+    ul [] [
+      li [] [
+        a [href "/#about"] [text "About"]
+      ],
+      li [] [
+        a [href "/#"] [text "Index"]
+      ],
+      li [] [
+        a [href "/#n"] [text "Not Found"]
+      ]
+    ],
+    div [] [ page model ]
   ]
 
 subscriptions : Model -> Sub Msg
@@ -33,4 +65,4 @@ subscriptions model =
 
 main : Program Never Model Msg
 main =
-  Html.program {init = init, update = update, view = view, subscriptions = subscriptions}
+  Navigation.program OnLocationChange {init = init, update = update, view = view, subscriptions = subscriptions}

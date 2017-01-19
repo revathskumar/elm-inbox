@@ -4,6 +4,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Navigation exposing (Location)
 import Routing exposing (parseLocation, Route(..))
+import Views.About
+import Views.Index
+import Views.NotFound
 
 type Msg = OnLocationChange Location
 
@@ -36,11 +39,11 @@ page : Model -> Html Msg
 page model =
   case model.route of
     About ->
-      div [] [text "About"]
+       Views.About.view
     Index ->
-      div [] [text "Index"]
+      Views.Index.view
     NotFound ->
-      div [] [text "NotFound"]
+      Views.NotFound.view
 
 view : Model -> Html Msg
 view model =

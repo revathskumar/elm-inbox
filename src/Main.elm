@@ -1,7 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html exposing (Html, div)
 import Navigation exposing (Location)
 import Routing exposing (parseLocation, Route(..))
 import Views.About
@@ -48,17 +47,6 @@ page model =
 view : Model -> Html Msg
 view model =
   div [] [
-    ul [] [
-      li [] [
-        a [href "/#about"] [text "About"]
-      ],
-      li [] [
-        a [href "/#"] [text "Index"]
-      ],
-      li [] [
-        a [href "/#n"] [text "Not Found"]
-      ]
-    ],
     div [] [ page model ]
   ]
 

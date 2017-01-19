@@ -5,8 +5,32 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
-    <div id="inbox-app"></div>
-    <script src="app.js"></script>
-    <script src="/node_modules/material-design-lite/material.js"></script>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">ELM Inbox</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href='/#'>Inbox</a>
+            <a class="mdl-navigation__link" href='/#about'>About</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">ELM Inbox</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href='/#'>Inbox</a>
+          <a class="mdl-navigation__link" href='/#about'>About</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div id="inbox-app"></div>
+        </div>
+      </main>
+    </div>
+
+    <script async src="app.js"></script>
+    <script async src="/node_modules/material-design-lite/material.js"></script>
   </body>
 </html>
